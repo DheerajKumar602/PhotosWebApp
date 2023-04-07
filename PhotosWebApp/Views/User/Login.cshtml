@@ -1,0 +1,31 @@
+﻿@model PhotosWebApp.Models.Users.LoginModel
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<link rel="stylesheet" href="~/css/LoginRegisterStyles.css" asp-append-version="true" />
+
+<body>
+    <div id="container">
+        <form id="LoginForm" name="LoginForm" enctype="multipart/form-data" method="post">
+
+            <div class="form-wrap">
+                <h2>Log In</h2>
+                <div class="form-group">
+                    <label for="Email">Email ID</label>
+                    @Html.TextBoxFor(m => m.Email)
+                </div>
+
+                <div class="form-group">
+                    <label for="Password">Password</label>
+                    @Html.TextBoxFor(m => m.Password)
+                </div>
+                <a href="ForgotPassword"> Forgot Password?</a>
+
+
+                <button type="submit">Log In</button>
+        </form>
+    </div>
+</body>
