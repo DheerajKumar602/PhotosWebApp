@@ -17,6 +17,7 @@ namespace PhotosWebApp.Models.Users
         [Required(ErrorMessage = "Password is Required")]
         public string Password { get; set; }
 
+        //[Phone]
         [Required(ErrorMessage = "Phone No. is Required")]
         public string Phone { get; set; }
 
@@ -24,12 +25,13 @@ namespace PhotosWebApp.Models.Users
         public string Country { get; set; }
 
         [Required(ErrorMessage = "Gender is Required")]
-        public string Gender { get; set; }
+        public int Gender { get; set; }
 
         [Required(ErrorMessage = "Hobby is Required")]
         public string Hobby { get; set; }
 
         [Required(ErrorMessage = "Profile Picture is Required")]
-        public string ProfilePicUrl { get; set; } //Try to take url
+        public IFormFile ProfilePic { get; set; } //Try to take url
+
     }
 }

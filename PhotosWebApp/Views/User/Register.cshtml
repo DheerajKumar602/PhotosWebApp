@@ -14,6 +14,14 @@
             <div class="form-wrap">
                 <h2>Sign Up</h2>
 
+                <div class="image-preview-container">
+                    <div class="preview">
+                        <img id="preview-selected-image" />
+                    </div>
+                    <label for="ProfilePic" >Upload a Profile Pic</label>
+                    <input type="file" id="ProfilePic" accept="image/*" onchange="previewImage(event);"  />
+                </div>
+
                 <div class="form-group">
                     <label for="Name">Your Name</label>
                     @Html.TextBoxFor(m => m.Name)
@@ -32,11 +40,10 @@
                 <div class="form-group">
                     <label for="Country">Your Country</label>
                     @Html.DropDownListFor(m => m.Country, new SelectList(ViewBag.Countries, "Value", "Text"), "Select Your Country")
-
                 </div>
 
                 <div class="form-group">
-                    <label for="Phone">Phone Number</label>
+                    <label for="Phone">Phone Number(With Country Code)</label>
                     @Html.TextBoxFor(m => m.Phone)
                 </div>
 
@@ -55,6 +62,7 @@
                     @Html.DropDownListFor(m => m.Hobby,
                     new SelectList(Enum.GetValues(typeof(Hobbies))), "Select Hobby")
                 </div>
+
                 <button type="submit">Sign Up</button>
 
             </div>

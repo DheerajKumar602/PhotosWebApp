@@ -27,12 +27,12 @@ namespace PhotosWebApp.Controllers
             var sortList = list.OrderBy(p => p.Text).ToList();
             ViewBag.Countries = sortList;
             return View();
-
         }
 
         [HttpPost]
         public IActionResult Register(RegisterModel registerModel)
         {
+            //write code to send otp
             return View();
         }
 
@@ -52,10 +52,7 @@ namespace PhotosWebApp.Controllers
         [HttpPost]
         public IActionResult ForgotPassword(string Email)
         {
-
-
             //Validiate if Email Exists and Generate OTP and Redirect to reset Password Page else return no user Exists response
-
             TempData["Email"] = Email;
             return RedirectToAction("SetNewPassword");
         }
@@ -63,7 +60,6 @@ namespace PhotosWebApp.Controllers
         [HttpGet]
         public IActionResult SetNewPassword()
         {
-           
             return View();
         }
 
@@ -71,7 +67,6 @@ namespace PhotosWebApp.Controllers
         public IActionResult SetNewPassword(string Email, string Otp, string NewPassword)
         {
             //Validaite OTP with EMail id If  valid Update Password Else GIve Invalid Otp Response or Relevant Response
-
             return View();
         }
     }
