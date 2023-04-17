@@ -34,7 +34,7 @@ namespace PhotosWebApp.Controllers
                 string Resp = response.Content.ToString();
                 JObject RespJson = JObject.Parse(Resp);
 
-                if (RespJson["message"].ToString() == "Logged in" && RespJson["token"].ToString() != "") //Checking if user logged in & Token is not null
+                if (RespJson["data"]["message"].ToString() == "Logged in" && RespJson["data"]["token"].ToString() != "") //Checking if user logged in & Token is not null
                 {
                     TempData.Clear();
                     TempData["token"] = RespJson["token"].ToString();
@@ -42,7 +42,7 @@ namespace PhotosWebApp.Controllers
 
                     //////////////////////////////////////////////////////////////////////////////////////////Pending  /////////////////
 
-                    //Redirect to Users dashboard  
+                    //Redirect to Users dashboard  & Add
                     return View(); //Fix Here
 
                 }
