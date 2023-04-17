@@ -3,6 +3,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using PhotosWebApp.Models.Users;
 using System.Collections.Generic;
 using System.Reflection;
+using RestSharp;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using System.Data.SqlTypes;
+using System;
+using PhotosWebApp.Models;
 
 namespace PhotosWebApp.Controllers
 {
@@ -17,7 +23,45 @@ namespace PhotosWebApp.Controllers
         [HttpPost]
         public IActionResult Login(LoginModel loginModel)
         {
-            return View();
+            var client = new RestClient($@"{enums.apiUrl}/api/Authorization/Login");
+            var request = new RestRequest();
+            object jsonDataBody = JsonConvert.SerializeObject(loginModel);
+            request.AddJsonBody(jsonDataBody);
+
+            try
+            {
+                var response = client.Post(request);
+                string Resp = response.Content.ToString();
+                JObject RespJson = JObject.Parse(Resp);
+
+                if (RespJson["message"].ToString() == "Logged in" && RespJson["token"].ToString() != "") //Checking if user logged in & Token is not null
+                {
+                    TempData.Clear();
+                    TempData["token"] = RespJson["token"].ToString();
+                    TempData["refreshToken"] = RespJson["refreshToken"].ToString();
+
+                    //////////////////////////////////////////////////////////////////////////////////////////Pending  /////////////////
+
+                    //Redirect to Users dashboard  
+                    return View(); //Fix Here
+
+                }
+
+                else
+                {
+                    //ReturnView With Invalid ID/PasswordScreen
+                    TempData["message"] = RespJson["message"];
+                    return View();
+                }
+            }
+
+            catch(Exception ex)
+            { //handle Exception Here , Like Api down or json Parsing Erorrs etc.
+                TempData["message"] = "Error Occured. Looks Like Api down or Something Went Wrong.";
+                return View();
+            }
+
+           
         }
 
         [HttpGet]
@@ -33,12 +77,15 @@ namespace PhotosWebApp.Controllers
         public IActionResult Register(RegisterModel registerModel)
         {
             //write code to send otp
-            return View();
+            return RedirectToAction("RegistrationVerifyOtp");
+           
         }
 
-      //  [HttpPost]
+        //  [HttpPost]
         public IActionResult Logout()
         {
+
+
             //Delete Access Token From Database
             return View();
         }
@@ -67,6 +114,18 @@ namespace PhotosWebApp.Controllers
         public IActionResult SetNewPassword(string Email, string Otp, string NewPassword)
         {
             //Validaite OTP with EMail id If  valid Update Password Else GIve Invalid Otp Response or Relevant Response
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult RegistrationVerifyOtp(string email)
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult RegistrationVerifyOtp()
+        {
             return View();
         }
     }

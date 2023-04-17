@@ -6,12 +6,6 @@
     box-sizing: border-box;
 }
 
-body {
-    font-family: 'poppins';
-    background-color: #ECEDEF;
-    color: #fff;
-    line-height: 1.8;
-}
 
 .form {
     margin-left: auto;
@@ -135,4 +129,11 @@ h1 {
         align-items: center;
         justify-content: center;
     }
+
+
+input[type='radio'] {
+    width: 20px;
+    height: 20px;
+}
+
 

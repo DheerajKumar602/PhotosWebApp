@@ -39,13 +39,16 @@ const previewImage = (event) => {
 };
 
 function validiateEmail(emailID) {
-
     var isValid = true; //add logic to validiate Email
-
     if (isValid){
         return true;
     }
-
     return false;
-
 }
+
+////LoginForms Functions
+
+
+
+//////LogInFormFunctions
+

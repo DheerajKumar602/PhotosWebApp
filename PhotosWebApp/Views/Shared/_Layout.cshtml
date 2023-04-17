@@ -6,7 +6,7 @@
     <title>@ViewData["Title"] - PhotosWebApp</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/PhotosWebApp.styles.css" asp-append-version="true" />
+    <!-- <link rel="stylesheet" href="~/PhotosWebApp.styles.css" asp-append-version="true" /> -->
 </head>
 <body>
     <header>
@@ -28,8 +28,8 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">Login</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Register">Register</a>
+                      <!--  <li class="nav-item">
+                              <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Register">Register</a> -->
                         </li>
                     </ul>
                 </div>
@@ -50,6 +50,32 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    const inputs = document.querySelectorAll(".input");
+
+
+    function addcl(){
+        let parent = this.parentNode.parentNode;
+    parent.classList.add("focus");
+}
+
+    function remcl(){
+        let parent = this.parentNode.parentNode;
+    if(this.value == ""){
+        parent.classList.remove("focus");
+	}
+}
+
+inputs.forEach(input => {
+        input.addEventListener("focus", addcl);
+    input.addEventListener("blur", remcl);
+});
+</script>
+
+
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>

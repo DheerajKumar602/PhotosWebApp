@@ -1,0 +1,38 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{
+    Layout = "~/Views/Shared/_LoginRegisterLayout.cshtml";
+}
+
+
+<body>
+    <div>
+        <img class="wave" src="/images/LoginRegsiterPage/wave.png">
+        <div class="container">
+            <div class="img">
+                <img src="/images/LoginRegsiterPage/bg.png">
+            </div>
+
+            <div class="login-content">
+                <form id="RegistrationOtpForm" name="RegistrationOtpForm" enctype="multipart/form-data" method="post">
+                    <h4 style="color : green">OTP has been sent to your registered email address.</h4>
+                    <img src="/images/LoginRegsiterPage/avatar.svg">
+                    <h3 class="title">Verify OTP to Complete Registration</h3>
+                    <div class="input-div one">
+                        <div class="i">
+                            <i class="fas fa-key"></i>
+                        </div>
+                        <div class="div">
+                            <input type="text" class="input" id="OTP" name="OTP" placeholder="Enter Your OTP" required>
+                        </div>
+                    </div>
+                    <input type="submit" class="btn" value="Verify OTP">
+                    <a asp-controller="User" asp-action="Login">Go Back to Login Page</a>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</body>

@@ -32,6 +32,5 @@ namespace PhotosWebApp.Models.Users
 
         [Required(ErrorMessage = "Profile Picture is Required")]
         public IFormFile ProfilePic { get; set; } //Try to take url
-
     }
 }

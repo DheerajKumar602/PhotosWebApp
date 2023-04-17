@@ -1,31 +1,69 @@
-﻿@model PhotosWebApp.Models.Users.LoginModel
-
-@*
+﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    Layout = "~/Views/Shared/_LoginRegisterLayout.cshtml";
 }
-<link rel="stylesheet" href="~/css/LoginRegisterStyles.css" asp-append-version="true" />
+
+<script>
+    //function ValidateEmail(inputText) {
+
+
+    //    var mailformat = /^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    //    if (inputText.value.match(mailformat)) {
+    //        alert("Valid email address!");
+    //        document.form1.text1.focus();
+    //        return true;
+    //    }
+    //    else {
+    //        alert("You have entered an invalid email address!");
+    //        document.form1.text1.focus();
+    //        return false;
+    //    }
+    //}
+</script>
 
 <body>
-    <div id="container">
-        <form id="LoginForm" name="LoginForm" enctype="multipart/form-data" method="post">
+    <div>
+        <img class="wave" src="/images/LoginRegsiterPage/wave.png">
+        <div class="container">
+            <div class="img">
+                <img src="/images/LoginRegsiterPage/bg.png">
+            </div>
+            <div class="login-content">
+                <form id="LoginForm" name="LoginForm" enctype="multipart/form-data" method="post">
+                    @if (TempData.ContainsKey("message"))
+                    {
+                        <h5>@TempData["message"]</h5>
+                    }
+                    <img src="/images/LoginRegsiterPage/avatar.svg">
 
-            <div class="form-wrap">
-                <h2>Log In</h2>
-                <div class="form-group">
-                    <label for="Email">Email ID</label>
-                    @Html.TextBoxFor(m => m.Email)
-                </div>
+                    <h2 class="title">Welcome</h2>
+                    <div class="input-div one">
 
-                <div class="form-group">
-                    <label for="Password">Password</label>
-                    @Html.TextBoxFor(m => m.Password)
-                </div>
-                <a href="ForgotPassword"> Forgot Password?</a>
+                        <div class="i">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="div">
 
+                            <input type="email" class="input" id="Email" name="Email" placeholder="Email ID" required>
+                        </div>
+                    </div>
+                    <div class="input-div pass">
+                        <div class="i">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div class="div">
 
-                <button type="submit">Log In</button>
-        </form>
+                            <input type="password" class="input" id="Password" name="Password" placeholder="Password" required>
+                        </div>
+                    </div>
+
+                    <a asp-controller="User" asp-action="ForgotPassword">Forgot Password?</a>
+                    <input type="submit" class="btn" value="Login">
+                    <a asp-controller="User" asp-action="Register">New Here? Sign Up Now!!!</a>
+                </form>
+            </div>
+        </div>
     </div>
 </body>

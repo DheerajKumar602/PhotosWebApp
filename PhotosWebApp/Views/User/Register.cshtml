@@ -2,8 +2,170 @@
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+
 @{
+    Layout = "~/Views/Shared/_LoginRegisterLayout.cshtml";
 }
+
+<link rel="stylesheet" href="~/css/LoginRegisterStyles.css" asp-append-version="true" />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script>
+
+    var jsonData = null;
+
+    function saveJson(data) {
+        jsonData = data;
+    }
+
+    $(function () {
+        $("#ProfilePic").change(function (event) {
+            var x = URL.createObjectURL(event.target.files[0]);
+            $("#upload-img").attr("src", x);
+            console.log(event);
+        });
+    })
+
+    async function getData(url) {
+        const response = await fetch(url);
+        return response.json();
+    }
+
+    async function updateCountryCode() {
+        var url = 'https://gist.githubusercontent.com/anubhavshrimal/75f6183458db8c453306f93521e93d37/raw/f77e7598a8503f1f70528ae1cbf9f66755698a16/CountryCodes.json';
+
+        const jsonData = await getData(url);
+
+        var e = document.getElementById("Country");
+        var text = e.options[e.selectedIndex].text;
+
+        var result = jsonData.filter(e => e.name == text);
+        document.getElementById("Phone").value = result[0].dial_code;
+        console.log(result);
+
+        console.log(result[0].dial_code);
+    }
+
+</script>
+
+<body>
+    <div>
+        <img class="wave" src="/images/LoginRegsiterPage/wave.png">
+        <div class="container">
+            <div class="img">
+                <img src="/images/LoginRegsiterPage/bg.png">
+            </div>
+
+            <div class="login-content">
+                <form id="RegisterForm" name="RegisterForm" enctype="multipart/form-data" method="post" onsubmit="return validateForm()">
+                    @if (TempData.ContainsKey("message"))
+                    {
+                        <h5>@TempData["message"]</h5>
+                    }
+                    <!-- <img src="/images/LoginRegsiterPage/avatar.svg"> -->
+
+                    <h2 class="title">Sign Up</h2>
+
+                    <div class="profile-images-card">
+                        <div class="profile-images">
+                            <img src="/images/profile1.png" id="upload-img">
+                        </div>
+                        <div class="custom-file">
+                            <label for="ProfilePic">Upload Profile Picture</label>
+                            <input type="file" id="ProfilePic" accept="image/*" required>
+                        </div>
+                    </div>
+
+
+                    <div class="input-div one">
+                        <div class="i">
+                            <i class="fa fa-user-circle"></i>
+                        </div>
+
+                        <div class="div">
+                            <input type="text" class="input" id="Name" name="Name" placeholder="Full Name" required>
+                        </div>
+                    </div>
+
+                    <div class="input-div pass">
+                        <div class="i">
+                            <i class="fa fa-envelope"></i>
+                        </div>
+                        <div class="div">
+
+                            <input type="email" class="input" id="Email" name="Email" placeholder="Email ID" required>
+                        </div>
+                    </div>
+
+                    <div class="input-div pass">
+                        <div class="i">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div class="div">
+
+                            <input type="password" class="input" id="Password" name="Password" placeholder="Password" required>
+                        </div>
+                    </div>
+
+                    <div class="input-div pass">
+                        <div class="i">
+                            <i class="fa fa-globe"></i>
+                        </div>
+                        <div class="dropdown">
+                            <!--Add Dropdown Herer-->
+                            @Html.DropDownListFor(m => m.Country, new SelectList(ViewBag.Countries, "Value", "Text"), "Select Your Country",  new { @onchange="updateCountryCode();", required="required"})
+                        </div>
+                    </div>
+
+                    <div class="input-div pass">
+                        <div class="i">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <div class="div">
+                            <input class="input" id="Phone" name="Phone" placeholder="Phone No (With Country Code)" required>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div>
+                            <label>Gender : </label>
+                            @Html.RadioButton("Gender","Male", new { required="required" }) <label for="Gender">Male</label>
+                            @Html.RadioButton("Gender","Female", new { required="required" }) <label for="Gender">Female</label>
+                        </div>
+                    </div>
+
+                    <div class="input-div pass">
+                        <div class="i">
+                            <i class="fa fa-cutlery"></i>
+                        </div>
+                        <div class="dropdown">
+                            @Html.DropDownListFor(m => m.Hobby, new SelectList(Enum.GetValues(typeof(Hobbies))), "Select Hobby", new { required="required" })
+                        </div>
+                    </div>
+
+
+                    <input type="submit" class="btn" value="Sign Up">
+                    <a asp-controller="User" asp-action="Login">Already Registered? Log In Now!!!</a>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+<!--
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script>
+    $(function () {
+        $("#ProfilePic").change(function (event) {
+            var x = URL.createObjectURL(event.target.files[0]);
+            $("#upload-img").attr("src", x);
+            console.log(event);
+        });
+    })
+</script>
 
 <link rel="stylesheet" href="~/css/LoginRegisterStyles.css" asp-append-version="true" />
 
@@ -12,54 +174,56 @@
         <form id="RegisterForm" name="RegisterForm" enctype="multipart/form-data" method="post">
 
             <div class="form-wrap">
+
                 <h2>Sign Up</h2>
 
-                <div class="image-preview-container">
-                    <div class="preview">
-                        <img id="preview-selected-image" />
+                <div class="profile-images-card">
+                    <div class="profile-images">
+                        <img src="/images/profile1.png" id="upload-img">
                     </div>
-                    <label for="ProfilePic" >Upload a Profile Pic</label>
-                    <input type="file" id="ProfilePic" accept="image/*" onchange="previewImage(event);"  />
+                    <div class="custom-file">
+                        <label for="ProfilePic">Upload Profile Picture</label>
+                        <input type="file" id="ProfilePic" accept="image/*">
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label for="Name">Your Name</label>
-                    @Html.TextBoxFor(m => m.Name)
+@Html.TextBoxFor(m => m.Name)
                 </div>
 
                 <div class="form-group">
                     <label for="Email">Email ID</label>
-                    @Html.TextBoxFor(m => m.Email)
+@Html.TextBoxFor(m => m.Email)
                 </div>
 
                 <div class="form-group">
                     <label for="Password">Password</label>
-                    @Html.TextBoxFor(m => m.Password)
+@Html.TextBoxFor(m => m.Password)
                 </div>
 
                 <div class="form-group">
                     <label for="Country">Your Country</label>
-                    @Html.DropDownListFor(m => m.Country, new SelectList(ViewBag.Countries, "Value", "Text"), "Select Your Country")
+@Html.DropDownListFor(m => m.Country, new SelectList(ViewBag.Countries, "Value", "Text"), "Select Your Country")
                 </div>
 
                 <div class="form-group">
                     <label for="Phone">Phone Number(With Country Code)</label>
-                    @Html.TextBoxFor(m => m.Phone)
+@Html.TextBoxFor(m => m.Phone)
                 </div>
 
                 <div class="form-group">
-                  
                 </div>
 
                 <div class="flex-row">
                     <label for="Phone">Gender :   </label>
-                    @Html.RadioButton("Gender","Male") <label for="Gender">Male</label>
-                    @Html.RadioButton("Gender","Female") <label for="Gender">Female</label>
+@Html.RadioButton("Gender","Male") <label for="Gender">Male</label>
+@Html.RadioButton("Gender","Female") <label for="Gender">Female</label>
                 </div>
 
                 <div class="dropdown">
                     <label for="Hobby">Hobby : </label>
-                    @Html.DropDownListFor(m => m.Hobby,
+@Html.DropDownListFor(m => m.Hobby,
                     new SelectList(Enum.GetValues(typeof(Hobbies))), "Select Hobby")
                 </div>
 
@@ -70,3 +234,4 @@
         </form>
     </div>
 </body>
+-->
