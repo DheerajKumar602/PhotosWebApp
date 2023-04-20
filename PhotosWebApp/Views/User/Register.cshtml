@@ -13,6 +13,7 @@
 
 <script>
 
+
     var jsonData = null;
 
     function saveJson(data) {
@@ -33,7 +34,8 @@
     }
 
     async function updateCountryCode() {
-        var url = 'https://gist.githubusercontent.com/anubhavshrimal/75f6183458db8c453306f93521e93d37/raw/f77e7598a8503f1f70528ae1cbf9f66755698a16/CountryCodes.json';
+
+        var url = '/data/CountryCodes.json';
 
         const jsonData = await getData(url);
 
@@ -50,7 +52,7 @@
     function validatePassword() {
         var password = document.getElementById("Password").value;
         //var paswd = /^(?=.*[0-9])(?=.*[!@@#$%^&*])[a-zA-Z0-9!@@#$%^&*]{7,15}$/;
-        if (password.length < 8) {
+        if (password.length < 6) {
             Password.setCustomValidity("Password must be atleast 8 characters long.");
             return true;
         }
