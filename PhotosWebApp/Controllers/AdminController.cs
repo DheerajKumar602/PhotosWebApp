@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using PhotosWebApp.Models;
 using PhotosWebApp.Models.Admin;
 using PhotosWebApp.Models.Dashboard;
 using System.Net.Http.Headers;
@@ -26,7 +27,7 @@ namespace PhotosWebApp.Controllers
             {
 
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-                using (var response = await httpClient.GetAsync("https://localhost:7184/api/Admin/GetAllUsers"))
+                using (var response = await httpClient.GetAsync($"{enums.apiUrl}/api/Admin/GetAllUsers"))
                 {
                     var apiResponse = await response.Content.ReadAsStringAsync();
                     _responseApi = JsonConvert.DeserializeObject<ListAdminResponse>(apiResponse);

@@ -1,83 +1,107 @@
 ﻿@model IEnumerable<PhotosWebApp.Models.Admin.AllUser>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Admin Panel";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Username)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PhoneNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Gender)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Country)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Hobby)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProfileImage)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Username)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gender)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Country)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Hobby)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProfileImage)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
+@{
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
 }
-    </tbody>
-</table>
+
+<body>
+    <div class="row">
+        <div>
+            <table class="table">
+                <thead>
+                    <tr class="text-center">
+                        <th>
+                            @Html.DisplayNameFor(model => model.Id)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProfileImage)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.Username)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Email)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PhoneNumber)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Gender)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Country)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Hobby)
+                        </th>
+
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="text-center">
+                            <td class="align-middle">
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+
+                            <td class="align-middle">
+                                <img class="rounded-circle" src="@item.ProfileImage" alt="@item.Name" style="max-width: 150px" />
+                            </td>
+
+                            <td class="align-middle">
+                                @Html.DisplayFor(modelItem => item.Username)
+                            </td>
+
+                            <td class="align-middle">
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+
+                            <td class="align-middle">
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+
+                            <td class="align-middle">
+                                @Html.DisplayFor(modelItem => item.PhoneNumber)
+                            </td>
+
+                            <td class="align-middle">
+                                @Html.DisplayFor(modelItem => item.Gender)
+                            </td>
+
+                            <td class="align-middle">
+                                @Html.DisplayFor(modelItem => item.Country)
+                            </td>
+
+                            <td class="align-middle">
+                                @Html.DisplayFor(modelItem => item.Hobby)
+                            </td>
+
+                            <td class="align-middle">
+                                <a class="btn btn-outline-primary"> <i class="bi bi-pencil-square"></i>Edit</a> 
+                                <a class="btn btn-outline-info"> <i class="bi bi-eye"></i>Details</a> 
+                                <a class="btn btn-danger"> <i class="bi bi-trash"></i>Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</body>
+
