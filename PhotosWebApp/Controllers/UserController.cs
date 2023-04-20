@@ -17,6 +17,7 @@ namespace PhotosWebApp.Controllers
         [HttpGet]
         public IActionResult Login()
         {
+            ViewBag.Token = TempData["token"] as string;
             return View();
         }
 
@@ -34,17 +35,18 @@ namespace PhotosWebApp.Controllers
                 string Resp = response.Content.ToString();
                 JObject RespJson = JObject.Parse(Resp);
 
-                if (RespJson["data"]["message"].ToString() == "Logged in" && RespJson["data"]["token"].ToString() != "") //Checking if user logged in & Token is not null
+                if (int.Parse(RespJson["statusCode"].ToString()) == 200 && RespJson["data"]["token"].ToString() != "") //Checking if user logged in & Token is not null
                 {
                     TempData.Clear();
-                    TempData["token"] = RespJson["token"].ToString();
-                    TempData["refreshToken"] = RespJson["refreshToken"].ToString();
+                    TempData["token"] = RespJson["data"]["token"].ToString();
+                    TempData["refreshToken"] = RespJson["data"]["refreshToken"].ToString();
 
                     //////////////////////////////////////////////////////////////////////////////////////////Pending  /////////////////
+                    ///
+                    TempData["message"] = "Login Success but Dashboard Redirection not yet implemented";
 
                     //Redirect to Users dashboard  & Add
                     return View(); //Fix Here
-
                 }
 
                 else

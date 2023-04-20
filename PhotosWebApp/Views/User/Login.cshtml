@@ -6,21 +6,23 @@
 }
 
 <script>
-    //function ValidateEmail(inputText) {
+    function validatePassword() {
+        var password = document.getElementById("Password").value;
+        //var paswd = /^(?=.*[0-9])(?=.*[!@@#$%^&*])[a-zA-Z0-9!@@#$%^&*]{7,15}$/;
+        if (password.length < 8) {
+            Password.setCustomValidity("Password must be atleast 8 characters long.");
+            return true;
+        }
+        else {
+            Password.setCustomValidity('');
+            return false;
+        }
+    }
 
+    function validateForm() {
+        validatePassword();
+    }
 
-    //    var mailformat = /^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    //    if (inputText.value.match(mailformat)) {
-    //        alert("Valid email address!");
-    //        document.form1.text1.focus();
-    //        return true;
-    //    }
-    //    else {
-    //        alert("You have entered an invalid email address!");
-    //        document.form1.text1.focus();
-    //        return false;
-    //    }
-    //}
 </script>
 
 <body>
@@ -60,7 +62,7 @@
                     </div>
 
                     <a asp-controller="User" asp-action="ForgotPassword">Forgot Password?</a>
-                    <input type="submit" class="btn" value="Login">
+                    <input type="submit" class="btn" value="Login" onclick="validateForm()">
                     <a asp-controller="User" asp-action="Register">New Here? Sign Up Now!!!</a>
                 </form>
             </div>

@@ -7,6 +7,25 @@
 }
 
 
+<script>
+    function validateOtp() {
+
+        var otp = document.getElementById("OTP");
+
+        if (otp.value < 100000 || otp.value > 999999) {
+            OTP.setCustomValidity("OTP must be 6 digits long");
+        }
+        else {
+            OTP.setCustomValidity('');
+        }
+    }
+
+    function validateForm() {
+        validateOtp();
+    }
+
+</script>
+
 <body>
     <div>
         <img class="wave" src="/images/LoginRegsiterPage/wave.png">
@@ -25,10 +44,10 @@
                             <i class="fas fa-key"></i>
                         </div>
                         <div class="div">
-                            <input type="text" class="input" id="OTP" name="OTP" placeholder="Enter Your OTP" required>
+                            <input type="number" class="input" id="OTP" name="OTP" placeholder="Enter Your OTP" required>
                         </div>
                     </div>
-                    <input type="submit" class="btn" value="Verify OTP">
+                    <input type="submit" class="btn" value="Verify OTP" onclick="validateForm()">
                     <a asp-controller="User" asp-action="Login">Go Back to Login Page</a>
                 </form>
             </div>
