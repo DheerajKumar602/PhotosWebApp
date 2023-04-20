@@ -2,6 +2,8 @@
 using Newtonsoft.Json;
 using PhotosWebApp.Models.Dashboard;
 using System.Net.Http.Headers;
+using System.Net.Mime;
+using System.Text;
 
 namespace PhotosWebApp.Controllers
 {
@@ -22,7 +24,7 @@ namespace PhotosWebApp.Controllers
             ApiResponse _responseApi = new ApiResponse();
             List<UserImages> _Images = new List<UserImages>();
            // string accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Im5ld3VzZXIiLCJqdGkiOiI0ZWMzZDdlZi1mNDM3LTQwMWItOGVhZS1mYTA4NzNjNjhiYzEiLCJlbWFpbCI6Im5ld3VzZXJAZ21haWwuY29tIiwiaWF0IjoxNjgxODE5Mzc5LCJyb2xlIjoiVXNlciIsIm5iZiI6MTY4MTgxOTM3OSwiZXhwIjoxNjgxOTA1Nzc5fQ.b-LTuQwu5unXlmFDslQciYhhlKEtYqtLwtMyAYaqoI8";
-            string accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Imxhc3R1c2VyIiwianRpIjoiMTdiZDVkZmEtNDRkNS00NjMyLWE1MDktM2IxZGI2NDBlZGRkIiwiZW1haWwiOiJsYXN0dXNlckBnbWFpbC5jb20iLCJpYXQiOjE2ODE5MDU3NzQsInJvbGUiOiJVc2VyIiwibmJmIjoxNjgxOTA1Nzc0LCJleHAiOjE2ODE5OTIxNzR9.oViuNyssCUTMjOeCdLjG7lmagYynHVp1Fy6z7dbpt2Y";
+            string accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Imxhc3R1c2VyIiwianRpIjoiZGMwYmE5MDQtNWVkMy00NjQ1LWJmOGUtMjY4YjAzZWI1YjcyIiwiZW1haWwiOiJsYXN0dXNlckBnbWFpbC5jb20iLCJpYXQiOjE2ODE5OTQyNTksInJvbGUiOiJVc2VyIiwibmJmIjoxNjgxOTk0MjU5LCJleHAiOjE2ODIwODA2NTl9.GzVTCcuBhGA_4ryBYAdjFRtk0zjqVvYGTKII6jJUEbk";
 
             using (var httpClient = new HttpClient(_clientHandler))
             {
@@ -59,6 +61,13 @@ namespace PhotosWebApp.Controllers
         }
 
         [HttpGet]
+        public IActionResult AddImage()
+        {
+            return View();
+        }
+        
+
+        [HttpGet]
         public async Task<IActionResult> GetuserDetails()
         {
             try
@@ -66,7 +75,7 @@ namespace PhotosWebApp.Controllers
                 AllUsers _user = new AllUsers();
                 ApiResponse _responseApi = new ApiResponse();
                 //string accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Im5ld3VzZXIiLCJqdGkiOiI0ZWMzZDdlZi1mNDM3LTQwMWItOGVhZS1mYTA4NzNjNjhiYzEiLCJlbWFpbCI6Im5ld3VzZXJAZ21haWwuY29tIiwiaWF0IjoxNjgxODE5Mzc5LCJyb2xlIjoiVXNlciIsIm5iZiI6MTY4MTgxOTM3OSwiZXhwIjoxNjgxOTA1Nzc5fQ.b-LTuQwu5unXlmFDslQciYhhlKEtYqtLwtMyAYaqoI8";
-                string accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Imxhc3R1c2VyIiwianRpIjoiMTdiZDVkZmEtNDRkNS00NjMyLWE1MDktM2IxZGI2NDBlZGRkIiwiZW1haWwiOiJsYXN0dXNlckBnbWFpbC5jb20iLCJpYXQiOjE2ODE5MDU3NzQsInJvbGUiOiJVc2VyIiwibmJmIjoxNjgxOTA1Nzc0LCJleHAiOjE2ODE5OTIxNzR9.oViuNyssCUTMjOeCdLjG7lmagYynHVp1Fy6z7dbpt2Y";
+                string accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Imxhc3R1c2VyIiwianRpIjoiZGMwYmE5MDQtNWVkMy00NjQ1LWJmOGUtMjY4YjAzZWI1YjcyIiwiZW1haWwiOiJsYXN0dXNlckBnbWFpbC5jb20iLCJpYXQiOjE2ODE5OTQyNTksInJvbGUiOiJVc2VyIiwibmJmIjoxNjgxOTk0MjU5LCJleHAiOjE2ODIwODA2NTl9.GzVTCcuBhGA_4ryBYAdjFRtk0zjqVvYGTKII6jJUEbk";
 
                 using (var httpClient = new HttpClient(_clientHandler))
                 {
