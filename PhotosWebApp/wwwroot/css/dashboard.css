@@ -1,0 +1,63 @@
+﻿body {
+}
+
+.forimg {
+    position: sticky;
+    object-fit: contain;
+    object-position: center;
+    border-radius: 5%;
+    width: 20rem;
+    float: left;
+    padding: 5px;
+    margin: 5px 10px 10px 10px;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(20em,1fr));
+    border-radius: 5%;
+    grid-gap: 1em;
+    padding: 2em;
+    margin: 0px 0px 0px 0px;
+}
+.gallery li{
+    list-style:none;
+}
+.card-item a{
+    text-decoration:none
+}
+.gallery img {
+    max-width:100%;
+    max-height:100%;
+}
+.card-item, .card-item a,.card{
+    display:flex;
+    flex-direction:column;
+   
+}
+.card-item a,.card,.card img {
+    flex:auto;
+}
+.card-item {
+    overflow: hidden;
+    height:200px;
+    border-radius: 5%;
+}
+.card img {
+    object-fit: cover;
+    transition: 200ms transform ease-in-out;
+    transform: scale(1.2);
+   
+}
+.card{
+    position:relative;
+}
+.card:hover img {
+     transform:scale(1.5);
+}
+
+.newslide {
+    overflow: hidden;
+}
+
+/* slider */

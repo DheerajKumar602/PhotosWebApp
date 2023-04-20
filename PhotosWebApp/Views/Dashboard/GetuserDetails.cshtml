@@ -1,0 +1,84 @@
+﻿@model PhotosWebApp.Models.Dashboard.AllUsers
+
+@{
+    ViewData["Title"] = "GetuserDetails";
+    Layout = "dashboardLayout";
+}
+
+
+<div>
+    <h4>User Details</h4>
+    <hr />
+    <dl class="row">
+        @if (Model.ProfileImage == null)
+        {
+            <dt class="col-sm-3">
+                <img src="~/images/LoginRegsiterPage/avatar.svg" class="img-thumbnail" style="border-radius:50%;width:50%;high:50%;" alt="...">
+            </dt>
+        }
+        else{
+        <dt class="col-sm-3">
+            <img src="@Model.ProfileImage" class="img-thumbnail" style="border-radius:25%/50%;" alt="...">
+        </dt>
+        }
+        <dt class="col-sm-8">
+            <br >
+        </dt>
+        <dt class="col-sm-12">
+            <br>
+        </dt>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Username)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Username)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Country)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Country)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Hobby)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Hobby)
+        </dd>
+        
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ },new {@style = "font-weight:bold;", @class = "btn btn-warning"})
+    <a class="btn btn-success" asp-action="Index">Back to Images</a>
+</div>
