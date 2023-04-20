@@ -13,7 +13,7 @@ namespace PhotosWebApp.Models.Users
         [EmailAddress]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Email is Required")]
+        [Required(ErrorMessage = "Password is Required")]
         public string Password { get; set; }
     }
 }

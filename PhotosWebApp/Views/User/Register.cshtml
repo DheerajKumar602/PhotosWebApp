@@ -47,6 +47,26 @@
         console.log(result[0].dial_code);
     }
 
+    function validatePassword() {
+        var password = document.getElementById("Password").value;
+        //var paswd = /^(?=.*[0-9])(?=.*[!@@#$%^&*])[a-zA-Z0-9!@@#$%^&*]{7,15}$/;
+        if (password.length < 8) {
+            Password.setCustomValidity("Password must be atleast 8 characters long.");
+            return true;
+        }
+        else {
+            Password.setCustomValidity('');
+            return false;
+        }
+    }
+
+    function validateForm(){
+
+        validatePassword();
+        //Code Pending Here
+
+    }
+
 </script>
 
 <body>
@@ -145,7 +165,7 @@
                     </div>
 
 
-                    <input type="submit" class="btn" value="Sign Up">
+                    <input type="submit" class="btn" value="Sign Up" onclick="validateForm()">
                     <a asp-controller="User" asp-action="Login">Already Registered? Log In Now!!!</a>
 
                 </form>
