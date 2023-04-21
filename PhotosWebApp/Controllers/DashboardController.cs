@@ -18,13 +18,12 @@ namespace PhotosWebApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string token)
         {
             AllUsers _user = new AllUsers();
             ApiResponse _responseApi = new ApiResponse();
             List<UserImages> _Images = new List<UserImages>();
-           // string accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Im5ld3VzZXIiLCJqdGkiOiI0ZWMzZDdlZi1mNDM3LTQwMWItOGVhZS1mYTA4NzNjNjhiYzEiLCJlbWFpbCI6Im5ld3VzZXJAZ21haWwuY29tIiwiaWF0IjoxNjgxODE5Mzc5LCJyb2xlIjoiVXNlciIsIm5iZiI6MTY4MTgxOTM3OSwiZXhwIjoxNjgxOTA1Nzc5fQ.b-LTuQwu5unXlmFDslQciYhhlKEtYqtLwtMyAYaqoI8";
-            string accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Imxhc3R1c2VyIiwianRpIjoiZGMwYmE5MDQtNWVkMy00NjQ1LWJmOGUtMjY4YjAzZWI1YjcyIiwiZW1haWwiOiJsYXN0dXNlckBnbWFpbC5jb20iLCJpYXQiOjE2ODE5OTQyNTksInJvbGUiOiJVc2VyIiwibmJmIjoxNjgxOTk0MjU5LCJleHAiOjE2ODIwODA2NTl9.GzVTCcuBhGA_4ryBYAdjFRtk0zjqVvYGTKII6jJUEbk";
+           string accessToken = token;
 
             using (var httpClient = new HttpClient(_clientHandler))
             {
