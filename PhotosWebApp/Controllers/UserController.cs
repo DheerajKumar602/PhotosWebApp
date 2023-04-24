@@ -112,6 +112,7 @@ namespace PhotosWebApp.Controllers
         //  [HttpPost]
         public IActionResult Logout()
         {
+            int i = 5;
             //Delete Access Token From Database
             return View();
         }
