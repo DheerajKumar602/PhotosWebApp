@@ -9,6 +9,11 @@ using Newtonsoft.Json;
 using System.Data.SqlTypes;
 using System;
 using PhotosWebApp.Models;
+using System.Net;
+using NuGet.Protocol;
+using System.Security.Policy;
+using static NuGet.Packaging.PackagingConstants;
+using System.IO;
 
 namespace PhotosWebApp.Controllers
 {
@@ -41,6 +46,8 @@ namespace PhotosWebApp.Controllers
                     TempData["token"] = RespJson["data"]["token"].ToString();
                     TempData["refreshToken"] = RespJson["data"]["refreshToken"].ToString();
 
+
+
                     //////////////////////////////////////////////////////////////////////////////////////////Pending  /////////////////
                     ///
                     TempData["message"] = "Login Success but Dashboard Redirection not yet implemented";
@@ -57,13 +64,13 @@ namespace PhotosWebApp.Controllers
                 }
             }
 
-            catch(Exception ex)
+            catch (Exception ex)
             { //handle Exception Here , Like Api down or json Parsing Erorrs etc.
                 TempData["message"] = "Error Occured. Looks Like Api down or Something Went Wrong.";
                 return View();
             }
 
-           
+
         }
 
         [HttpGet]
@@ -76,18 +83,16 @@ namespace PhotosWebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(RegisterModel registerModel)
+        public async Task<IActionResult> Register(RegistrationModel registrationModel)
         {
-            //write code to send otp
+
+
             return RedirectToAction("RegistrationVerifyOtp");
-           
         }
 
         //  [HttpPost]
         public IActionResult Logout()
         {
-
-
             //Delete Access Token From Database
             return View();
         }
@@ -120,14 +125,15 @@ namespace PhotosWebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult RegistrationVerifyOtp(string email)
+        public IActionResult RegistrationVerifyOtp(string email, string otp)
         {
             return View();
         }
 
         [HttpGet]
-        public IActionResult RegistrationVerifyOtp()
+        public IActionResult RegistrationVerifyOtp(string email)
         {
+            TempData["Email"] = email;
             return View();
         }
     }

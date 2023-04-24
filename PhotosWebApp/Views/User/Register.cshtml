@@ -1,4 +1,4 @@
-﻿@model PhotosWebApp.Models.Users.RegisterModel
+﻿@model PhotosWebApp.Models.Users.RegistrationModel
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -21,7 +21,7 @@
     }
 
     $(function () {
-        $("#ProfilePic").change(function (event) {
+        $("#ImageFile").change(function (event) {
             var x = URL.createObjectURL(event.target.files[0]);
             $("#upload-img").attr("src", x);
             console.log(event);
@@ -43,7 +43,7 @@
         var text = e.options[e.selectedIndex].text;
 
         var result = jsonData.filter(e => e.name == text);
-        document.getElementById("Phone").value = result[0].dial_code;
+        document.getElementById("PhoneNumber").value = result[0].dial_code;
         console.log(result);
 
         console.log(result[0].dial_code);
@@ -62,7 +62,9 @@
         }
     }
 
-    function validateForm(){
+    function validateForm() {
+
+        document.getElementById("Username").value = document.getElementById("Email").value; //For Taking Email AS Username
 
         validatePassword();
         //Code Pending Here
@@ -71,6 +73,80 @@
 
 </script>
 
+
+<script>
+    $(document).ready(function () {
+
+        $("#btnsubmit").click(function () {
+
+            $("#btnsubmit").prop('disabled', true);
+            $("#btnsubmit").prop('value', 'Signing Up....');
+
+            var btn = $(this);
+
+            var formData = new FormData();
+            formData.append('Name', $('#Name').val());
+            formData.append('Email', $('#Email').val());
+            formData.append('Gender', $('#Gender').val());
+            formData.append('Hobby', document.getElementById("Hobby").selectedIndex);
+            formData.append('ProfileImage', $('#ProfileImage').val());
+            formData.append('Username', $('#Username').val());
+            formData.append('Country', $('#Country').val());
+            formData.append('ProfileImage', $('#ProfileImage').val());
+            formData.append('PhoneNumber', $('#PhoneNumber').val());
+            formData.append('Password', $('#Password').val());
+
+            var file = document.getElementById('ImageFile').files;
+            formData.append('ImageFile', file[0]);
+
+            $.ajax({
+                type: 'post',
+                url: 'http://192.168.0.230:5251/api/Authorization/Registration',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    alert(response.message);
+                    if (response.statusCode == 400)
+                    {
+                        //Show Message on Page With Error
+                    }
+
+                   window.location.href = "https://www.google.com/"
+                    
+                    $("#btnsubmit").prop('disabled', false);
+                    $("#btnsubmit").prop('value', 'Success');
+                },
+                failure: function (response) {
+                    alert('Failed');
+                    $("#btnsubmit").prop('disabled', false);
+                    $("#btnsubmit").prop('value', 'Sign Up');
+
+                    //Show Message on Page With Error
+                },
+                error: function (response) {
+                    alert('Error');
+
+                    $("#btnsubmit").prop('disabled', false);
+                    $("#btnsubmit").prop('value', 'Sign Up');
+
+                    //Show Message on Page With Error
+                }
+                  
+            });
+
+
+            return false;
+        });
+    });
+
+    function addMessage(isSuccess) {
+        var temp = document.createElement("div");
+        temp.className = "input-box";
+        temp.innerHTML = isSuccess ? "Email Sent Successfully!!!!!!!!!!!." : "Error While Sending Email";
+        document.getElementById("ContactUSForm").appendChild(temp);
+    }
+</script>
 <body>
     <div>
         <img class="wave" src="/images/LoginRegsiterPage/wave.png">
@@ -94,8 +170,10 @@
                             <img src="/images/profile1.png" id="upload-img">
                         </div>
                         <div class="custom-file">
-                            <label for="ProfilePic">Upload Profile Picture</label>
-                            <input type="file" id="ProfilePic" accept="image/*" required>
+                            <label for="ImageFile">Upload Profile Picture</label>
+                            <!--  <input type="file" id="ImageFile" accept="image/*" required> -->
+                            @Html.TextBoxFor(m => m.ImageFile, new { type = "file", accept="image/*"})
+                          
                         </div>
                     </div>
 
@@ -118,7 +196,26 @@
 
                             <input type="email" class="input" id="Email" name="Email" placeholder="Email ID" required>
                         </div>
+
+
+
                     </div>
+
+                   <!-- <div class="input-div pass" >
+
+                        <div class="i">
+                            <i class="fa fa-user-circle"></i>
+                        </div>
+
+                        <div class="div" >
+                            <input type="text" class="input" id="Username" name="Username" placeholder="Enter Username"  required>
+                        </div>
+                    </div> -->
+
+                    <input type="text" class="input" id="Username" name="Username" placeholder="Enter Username" hidden="hidden" required>
+                    <input type="text" class="input" id="ProfileImage" name="ProfileImage" placeholder="Enter Username" hidden="hidden" value="profilePic">
+
+
 
                     <div class="input-div pass">
                         <div class="i">
@@ -145,7 +242,7 @@
                             <i class="fa fa-phone"></i>
                         </div>
                         <div class="div">
-                            <input class="input" id="Phone" name="Phone" placeholder="Phone No (With Country Code)" required>
+                            <input class="input" id="PhoneNumber" name="PhoneNumber" placeholder="Phone No (With Country Code)" required>
                         </div>
                     </div>
 
@@ -167,7 +264,7 @@
                     </div>
 
 
-                    <input type="submit" class="btn" value="Sign Up" onclick="validateForm()">
+                    <input type="submit" class="btn" value="Sign Up" id="btnsubmit" name="btnsubmit" onclick="validateForm()">
                     <a asp-controller="User" asp-action="Login">Already Registered? Log In Now!!!</a>
 
                 </form>
@@ -176,84 +273,3 @@
     </div>
 </body>
 
-<!--
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-<script>
-    $(function () {
-        $("#ProfilePic").change(function (event) {
-            var x = URL.createObjectURL(event.target.files[0]);
-            $("#upload-img").attr("src", x);
-            console.log(event);
-        });
-    })
-</script>
-
-<link rel="stylesheet" href="~/css/LoginRegisterStyles.css" asp-append-version="true" />
-
-<body>
-    <div id="container">
-        <form id="RegisterForm" name="RegisterForm" enctype="multipart/form-data" method="post">
-
-            <div class="form-wrap">
-
-                <h2>Sign Up</h2>
-
-                <div class="profile-images-card">
-                    <div class="profile-images">
-                        <img src="/images/profile1.png" id="upload-img">
-                    </div>
-                    <div class="custom-file">
-                        <label for="ProfilePic">Upload Profile Picture</label>
-                        <input type="file" id="ProfilePic" accept="image/*">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="Name">Your Name</label>
-@Html.TextBoxFor(m => m.Name)
-                </div>
-
-                <div class="form-group">
-                    <label for="Email">Email ID</label>
-@Html.TextBoxFor(m => m.Email)
-                </div>
-
-                <div class="form-group">
-                    <label for="Password">Password</label>
-@Html.TextBoxFor(m => m.Password)
-                </div>
-
-                <div class="form-group">
-                    <label for="Country">Your Country</label>
-@Html.DropDownListFor(m => m.Country, new SelectList(ViewBag.Countries, "Value", "Text"), "Select Your Country")
-                </div>
-
-                <div class="form-group">
-                    <label for="Phone">Phone Number(With Country Code)</label>
-@Html.TextBoxFor(m => m.Phone)
-                </div>
-
-                <div class="form-group">
-                </div>
-
-                <div class="flex-row">
-                    <label for="Phone">Gender :   </label>
-@Html.RadioButton("Gender","Male") <label for="Gender">Male</label>
-@Html.RadioButton("Gender","Female") <label for="Gender">Female</label>
-                </div>
-
-                <div class="dropdown">
-                    <label for="Hobby">Hobby : </label>
-@Html.DropDownListFor(m => m.Hobby,
-                    new SelectList(Enum.GetValues(typeof(Hobbies))), "Select Hobby")
-                </div>
-
-                <button type="submit">Sign Up</button>
-
-            </div>
-
-        </form>
-    </div>
-</body>
--->
