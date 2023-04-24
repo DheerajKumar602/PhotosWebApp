@@ -15,7 +15,7 @@ namespace PhotosWebApp.Controllers
         {
             _clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, SslPolicyErrors) => { return true; };
         }
-        public async Task<IActionResult> Dashboard()
+        public async Task<IActionResult> Dashboard(string Token)
         {
            
             ListAdminResponse _responseApi = new ListAdminResponse();

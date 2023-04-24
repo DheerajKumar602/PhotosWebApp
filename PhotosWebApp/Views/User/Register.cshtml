@@ -101,7 +101,7 @@
 
             $.ajax({
                 type: 'post',
-                url: 'http://192.168.0.230:5251/api/Authorization/Registration',
+                url: 'http://192.168.0.231:5251/api/Authorization/Registration',
                 data: formData,
                 contentType: false,
                 processData: false,
@@ -110,9 +110,15 @@
                     if (response.statusCode == 400)
                     {
                         //Show Message on Page With Error
+                        
                     }
 
-                   window.location.href = "https://www.google.com/"
+                    else{
+                        document.getElementById("EnableRedirect").value = "True";
+                        window.location.href = "http://localhost:7250/User/RegistrationVerifyOtp?email=" + document.getElementById("Email").value;
+                    }
+
+                
                     
                     $("#btnsubmit").prop('disabled', false);
                     $("#btnsubmit").prop('value', 'Success');
@@ -156,7 +162,7 @@
             </div>
 
             <div class="login-content">
-                <form id="RegisterForm" name="RegisterForm" enctype="multipart/form-data" method="post" onsubmit="return validateForm()">
+                <form id="RegisterForm" name="RegisterForm" enctype="multipart/form-data" method="post">
                     @if (TempData.ContainsKey("message"))
                     {
                         <h5>@TempData["message"]</h5>
@@ -212,6 +218,7 @@
                         </div>
                     </div> -->
 
+                    <input type="text" class="input" id="EnableRedirect" name="EnableRedirect" placeholder="False" hidden="hidden" required>
                     <input type="text" class="input" id="Username" name="Username" placeholder="Enter Username" hidden="hidden" required>
                     <input type="text" class="input" id="ProfileImage" name="ProfileImage" placeholder="Enter Username" hidden="hidden" value="profilePic">
 
