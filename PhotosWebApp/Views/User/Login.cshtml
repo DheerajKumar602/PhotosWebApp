@@ -34,11 +34,13 @@
             </div>
             <div class="login-content">
                 <form id="LoginForm" name="LoginForm" enctype="multipart/form-data" method="post">
+  
+                    <img src="/images/LoginRegsiterPage/avatar.svg">
+
                     @if (TempData.ContainsKey("message"))
                     {
                         <h5>@TempData["message"]</h5>
                     }
-                    <img src="/images/LoginRegsiterPage/avatar.svg">
 
                     <h2 class="title">Welcome</h2>
                     <div class="input-div one">

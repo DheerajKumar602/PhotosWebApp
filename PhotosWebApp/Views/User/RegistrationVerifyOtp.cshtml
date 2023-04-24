@@ -112,16 +112,26 @@
             <div class="login-content">
                 <form id="RegistrationOtpForm" name="RegistrationOtpForm" enctype="multipart/form-data" method="post">
                     <h4 style="color : green">OTP has been sent to your registered email address.</h4>
+                    @if (TempData.ContainsKey("message"))
+                    {
+                        <h5>@TempData["message"]</h5>
+                    }
+
                     <img src="/images/LoginRegsiterPage/avatar.svg">
                     <h3 class="title">Verify OTP to Complete Registration</h3>
                     <div class="input-div one">
                         <div class="i">
                             <i class="fas fa-key"></i>
                         </div>
+
                         <div class="div">
-                            <input type="number" class="input" id="OTP" name="OTP" placeholder="Enter Your OTP" required>
+                            <input type="number" class="input" id="otp" name="otp" placeholder="Enter Your OTP" required>
                         </div>
                     </div>
+
+                    <input type="text" id="email" name="email" placeholder="Enter Your OTP" value='@TempData["email"]' hidden="hidden">
+
+
                     <input type="submit" class="btn" value="Verify OTP" onclick="validateForm()">
                     <a asp-controller="User" asp-action="Login">Go Back to Login Page</a>
                 </form>
