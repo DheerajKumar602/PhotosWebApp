@@ -18,7 +18,7 @@ namespace PhotosWebApp.Controllers
         public DashboardController()
         {
             _clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, SslPolicyErrors) => { return true; };
-                  
+
         }
 
         [HttpGet]
@@ -35,7 +35,7 @@ namespace PhotosWebApp.Controllers
             ApiResponse _responseApi = new ApiResponse();
             List<UserImages> _Images = new List<UserImages>();
             string accessToken = Usertoken;
-            
+
             using (var httpClient = new HttpClient(_clientHandler))
             {
 
@@ -50,7 +50,7 @@ namespace PhotosWebApp.Controllers
             ViewData["profileImage"] = _responseApi.data.ProfileImage;
             ViewData["username"] = _responseApi.data.Name;
             ViewData["Token"] = Usertoken;
-            
+
             return View(_Images);
         }
 
@@ -77,7 +77,7 @@ namespace PhotosWebApp.Controllers
             ViewData["token"] = Usertoken;
             return View();
         }
-        
+
 
         [HttpGet]
         public async Task<IActionResult> GetuserDetails()
@@ -94,7 +94,7 @@ namespace PhotosWebApp.Controllers
                     httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
                     using (var response = await httpClient.GetAsync("https://localhost:7184/api/Protected/userDetails"))
                     {
-                         var apiResponse = await response.Content.ReadAsStringAsync();
+                        var apiResponse = await response.Content.ReadAsStringAsync();
                         _responseApi = JsonConvert.DeserializeObject<ApiResponse>(apiResponse);
                     }
                 }
@@ -110,13 +110,13 @@ namespace PhotosWebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult deleteImage(int Id,string file) 
+        public IActionResult deleteImage(int Id, string file)
         {
             ViewData["id"] = Id;
             ViewData["file"] = file;
             return View();
         }
-       
+
 
         [HttpPost]
         public async Task<IActionResult> finalDelete(int Id)
@@ -132,11 +132,11 @@ namespace PhotosWebApp.Controllers
                     string data = JsonConvert.SerializeObject(justId);
                     StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
                     httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-                    var response = await httpClient.PostAsync("https://localhost:7184/api/Protected/DeleteImage",content);
+                    var response = await httpClient.PostAsync("https://localhost:7184/api/Protected/DeleteImage", content);
                 }
                 return RedirectToAction("Index");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 TempData["errorMessage"] = ex.Message;
                 return RedirectToAction("Index");
