@@ -22,6 +22,7 @@ namespace PhotosWebApp.Controllers
         [HttpGet]
         public IActionResult Login()
         {
+            int io = 0;
             ViewBag.Token = TempData["token"] as string;
             return View();
         }
