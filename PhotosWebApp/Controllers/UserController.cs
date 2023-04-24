@@ -39,21 +39,30 @@ namespace PhotosWebApp.Controllers
                 var response = client.Post(request);
                 string Resp = response.Content.ToString();
                 JObject RespJson = JObject.Parse(Resp);
-
+                string Token;
+                string role;
                 if (int.Parse(RespJson["statusCode"].ToString()) == 200 && RespJson["data"]["token"].ToString() != "") //Checking if user logged in & Token is not null
                 {
                     TempData.Clear();
+                    Token = RespJson["data"]["token"].ToString();
                     TempData["token"] = RespJson["data"]["token"].ToString();
                     TempData["refreshToken"] = RespJson["data"]["refreshToken"].ToString();
-
-
-
+                    role = RespJson["data"]["role"].ToString();
                     //////////////////////////////////////////////////////////////////////////////////////////Pending  /////////////////
                     ///
-                    TempData["message"] = "Login Success but Dashboard Redirection not yet implemented";
+                    TempData["message"] = "";
 
                     //Redirect to Users dashboard  & Add
-                    return View(); //Fix Here
+                    if (role == "User")
+                    {
+                        return RedirectToAction("Home", "Dashboard", new { Token });
+                    }
+                    else if (role == "Admin")
+                    {
+                        return RedirectToAction("Index", "Admin", new { Token });
+                    }
+                    TempData["message"] = RespJson["message"];
+                    return View();
                 }
 
                 else

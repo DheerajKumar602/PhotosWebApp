@@ -20,8 +20,7 @@ namespace PhotosWebApp.Controllers
            
             ListAdminResponse _responseApi = new ListAdminResponse();
             List<UserImages> _Images = new List<UserImages>();
-            // string accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Im5ld3VzZXIiLCJqdGkiOiI0ZWMzZDdlZi1mNDM3LTQwMWItOGVhZS1mYTA4NzNjNjhiYzEiLCJlbWFpbCI6Im5ld3VzZXJAZ21haWwuY29tIiwiaWF0IjoxNjgxODE5Mzc5LCJyb2xlIjoiVXNlciIsIm5iZiI6MTY4MTgxOTM3OSwiZXhwIjoxNjgxOTA1Nzc5fQ.b-LTuQwu5unXlmFDslQciYhhlKEtYqtLwtMyAYaqoI8";
-            string accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImFkbWluIiwianRpIjoiNzUyN2QwYjYtNjFhYy00NTBkLTgyNmYtMzkxMjExOTRjMDRkIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE2ODE5NzI0ODgsInJvbGUiOiJBZG1pbiIsIm5iZiI6MTY4MTk3MjQ4OCwiZXhwIjoxNjgyMDU4ODg4fQ.JL2RBhRNMoazzu33GiqP-VlHgXjjFrVeeIluBLy0D-c";
+             string accessToken = Token;
 
             using (var httpClient = new HttpClient(_clientHandler))
             {
