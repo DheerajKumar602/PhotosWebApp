@@ -62,7 +62,7 @@ namespace PhotosWebApp.Controllers
                     }
                     else if (role == "Admin")
                     {
-                        return RedirectToAction("Dashboard", "Admin", new { Token });
+                        return RedirectToAction("Home", "Admin", new { Token });
                     }
                     TempData["message"] = RespJson["message"];
                     TempData.Keep();
