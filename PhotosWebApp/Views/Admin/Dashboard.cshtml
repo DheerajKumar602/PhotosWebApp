@@ -55,11 +55,17 @@
                             <td class="align-middle">
                                 @Html.DisplayFor(modelItem => item.Id)
                             </td>
-
+                            @if (item.ProfileImage == null)
+                            {
+                                <td class="align-middle">
+                                    <img class="rounded-circle" src="~/images/LoginRegsiterPage/avatar.svg" alt="default image" style="max-width: 120px;height:100px;" />
+                                </td>
+                            }
+                            else{
                             <td class="align-middle">
-                                <img class="rounded-circle" src="@item.ProfileImage" alt="@item.Name" style="max-width: 150px" />
+                                <img class="rounded-circle" src="@item.ProfileImage" alt="@item.Name" style="width: 120px;height:100px;" />
                             </td>
-
+                            }
                             <td class="align-middle">
                                 @Html.DisplayFor(modelItem => item.Username)
                             </td>

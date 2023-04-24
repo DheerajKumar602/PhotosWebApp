@@ -36,7 +36,7 @@ function sendData() {
                 clearForm();
             },
             error: function (message) {
-                alert("Server Error while Adding Image");
+                alert("Server Error while Adding Image (Allowed Extentions are jpg,png,jpeg)");
                 $this.button('reset');
 
             },

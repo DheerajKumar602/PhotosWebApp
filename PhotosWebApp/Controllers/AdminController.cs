@@ -10,17 +10,23 @@ namespace PhotosWebApp.Controllers
     public class AdminController : Controller
     {
         HttpClientHandler _clientHandler = new HttpClientHandler();
-        
+        static string Usertoken;
         public AdminController()
         {
             _clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, SslPolicyErrors) => { return true; };
         }
-        public async Task<IActionResult> Dashboard(string Token)
+        [HttpGet]
+        public async Task<IActionResult> Home(string token)
+        {
+            Usertoken = token;
+            return RedirectToAction("Dashboard");
+        }
+        public async Task<IActionResult> Dashboard()
         {
            
             ListAdminResponse _responseApi = new ListAdminResponse();
             List<UserImages> _Images = new List<UserImages>();
-             string accessToken = Token;
+             string accessToken = Usertoken;
 
             using (var httpClient = new HttpClient(_clientHandler))
             {
