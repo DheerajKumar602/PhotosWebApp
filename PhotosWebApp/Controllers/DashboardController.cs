@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using NuGet.Common;
 using PhotosWebApp.Models.Dashboard;
 using System.Net.Http.Headers;
 using System.Net.Mime;
+using System.Reflection;
 using System.Text;
 
 namespace PhotosWebApp.Controllers
@@ -11,20 +13,29 @@ namespace PhotosWebApp.Controllers
     {
         HttpClientHandler _clientHandler = new HttpClientHandler();
         AllUsers _user = new AllUsers();
+        static string Usertoken;
 
         public DashboardController()
         {
             _clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, SslPolicyErrors) => { return true; };
+                  
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(string token)
+        public async Task<IActionResult> Home(string token)
+        {
+            Usertoken = token;
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Index()
         {
             AllUsers _user = new AllUsers();
             ApiResponse _responseApi = new ApiResponse();
             List<UserImages> _Images = new List<UserImages>();
-           string accessToken = token;
-
+            string accessToken = Usertoken;
+            
             using (var httpClient = new HttpClient(_clientHandler))
             {
 
@@ -33,18 +44,19 @@ namespace PhotosWebApp.Controllers
                 {
                     var apiResponse = await response.Content.ReadAsStringAsync();
                     _responseApi = JsonConvert.DeserializeObject<ApiResponse>(apiResponse);
-                    _Images = await GetallImages(accessToken);
+                    _Images = await GetallImages();
                 }
             }
             ViewData["profileImage"] = _responseApi.data.ProfileImage;
             ViewData["username"] = _responseApi.data.Name;
-            
+            ViewData["Token"] = Usertoken;
             
             return View(_Images);
         }
 
-        public async Task<List<UserImages>> GetallImages(string accessToken)
+        public async Task<List<UserImages>> GetallImages()
         {
+            var accessToken = Usertoken;
             List<UserImages> _userImages = new List<UserImages>();
             ApiImgResponse _responseImgApi = new ApiImgResponse();
             using (var httpClient = new HttpClient(_clientHandler))
@@ -62,6 +74,7 @@ namespace PhotosWebApp.Controllers
         [HttpGet]
         public IActionResult AddImage()
         {
+            ViewData["token"] = Usertoken;
             return View();
         }
         
@@ -73,8 +86,7 @@ namespace PhotosWebApp.Controllers
             {
                 AllUsers _user = new AllUsers();
                 ApiResponse _responseApi = new ApiResponse();
-                //string accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Im5ld3VzZXIiLCJqdGkiOiI0ZWMzZDdlZi1mNDM3LTQwMWItOGVhZS1mYTA4NzNjNjhiYzEiLCJlbWFpbCI6Im5ld3VzZXJAZ21haWwuY29tIiwiaWF0IjoxNjgxODE5Mzc5LCJyb2xlIjoiVXNlciIsIm5iZiI6MTY4MTgxOTM3OSwiZXhwIjoxNjgxOTA1Nzc5fQ.b-LTuQwu5unXlmFDslQciYhhlKEtYqtLwtMyAYaqoI8";
-                string accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Imxhc3R1c2VyIiwianRpIjoiZGMwYmE5MDQtNWVkMy00NjQ1LWJmOGUtMjY4YjAzZWI1YjcyIiwiZW1haWwiOiJsYXN0dXNlckBnbWFpbC5jb20iLCJpYXQiOjE2ODE5OTQyNTksInJvbGUiOiJVc2VyIiwibmJmIjoxNjgxOTk0MjU5LCJleHAiOjE2ODIwODA2NTl9.GzVTCcuBhGA_4ryBYAdjFRtk0zjqVvYGTKII6jJUEbk";
+                string accessToken = Usertoken;
 
                 using (var httpClient = new HttpClient(_clientHandler))
                 {
@@ -94,6 +106,41 @@ namespace PhotosWebApp.Controllers
             {
                 TempData["errorMessage"] = ex.Message;
                 return View();
+            }
+        }
+
+        [HttpPost]
+        public IActionResult deleteImage(int Id,string file) 
+        {
+            ViewData["id"] = Id;
+            ViewData["file"] = file;
+            return View();
+        }
+        [HttpGet]
+        public IActionResult finalDelete() {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> finalDelete(int Id)
+        {
+            try
+            {
+                string accessToken = Usertoken;
+
+                using (var httpClient = new HttpClient(_clientHandler))
+                {
+                    string data = JsonConvert.SerializeObject(Id);
+                    StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+                    var response = await httpClient.PostAsync("https://localhost:7184/api/Protected/DeleteImage",content);
+                }
+                return RedirectToAction("Index");
+            }
+            catch(Exception ex)
+            {
+                TempData["errorMessage"] = ex.Message;
+                return RedirectToAction("Index");
             }
         }
     }

@@ -3,6 +3,7 @@ function sendData() {
     //var contact = {};
     var $this = $(this);
     var Id = $('#Id').val();
+    var token = $('#token').val();
 
     if ($('#Id').val() === '') {
         alert("Required Id");
@@ -18,7 +19,7 @@ function sendData() {
            
             type: "Post",
             headers: {
-                Authorization: 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Imxhc3R1c2VyIiwianRpIjoiZGMwYmE5MDQtNWVkMy00NjQ1LWJmOGUtMjY4YjAzZWI1YjcyIiwiZW1haWwiOiJsYXN0dXNlckBnbWFpbC5jb20iLCJpYXQiOjE2ODE5OTQyNTksInJvbGUiOiJVc2VyIiwibmJmIjoxNjgxOTk0MjU5LCJleHAiOjE2ODIwODA2NTl9.GzVTCcuBhGA_4ryBYAdjFRtk0zjqVvYGTKII6jJUEbk'
+                Authorization: 'Bearer ' + token
             },
             data: formData,
             processData: false,  // tell jQuery not to process the data
@@ -49,4 +50,5 @@ function sendData() {
 
 function clearForm() {
     $('#formFile').val(null);
+    frame.src = "";
 }

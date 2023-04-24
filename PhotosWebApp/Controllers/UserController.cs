@@ -46,12 +46,12 @@ namespace PhotosWebApp.Controllers
                     role = RespJson["data"]["role"].ToString();
                     //////////////////////////////////////////////////////////////////////////////////////////Pending  /////////////////
                     ///
-                    TempData["message"] = "Login Success but Dashboard Redirection not yet implemented";
+                    TempData["message"] = "";
 
                     //Redirect to Users dashboard  & Add
                     if (role == "User")
                     {
-                        return RedirectToAction("Index", "Dashboard", new { Token });
+                        return RedirectToAction("Home", "Dashboard", new { Token });
                     }
                     else if (role == "Admin")
                     {

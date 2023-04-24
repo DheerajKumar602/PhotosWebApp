@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Show Image";
+    Layout = "dashboardLayout";
+}
+<h2>Show Image</h2>
+<br />
+<img src=@ViewData["file"] style="border-radius: 5%;width: 20rem;" >
+<br />
+<br />
+
+<form action="Dashboard/finalDelete" method="post" >
+  <input type="hidden" name="Id" value="@ViewData["id"]">
+<a type="submit" class="btn btn-danger" asp-action="finalDelete">Delete Image</a>
+
+
+</form>
+
+<a class="btn btn-success" asp-action="Index">Back to Images</a>

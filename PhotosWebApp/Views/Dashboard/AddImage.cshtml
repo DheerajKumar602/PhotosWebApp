@@ -31,14 +31,16 @@
                     <input asp-for="Id" type="hidden" class="form-control " id="Id" value="1">
                     
                 </div>
+                <input type="hidden" id="token" value=@ViewData["token"]>
                 <br>
                 <div class="form-group"> 
                     <b><label for="formFile" class="form-label">Add Image</label></b>
-
-                    <input asp-for="formFile" id="formFile" class="form-control" />
+                    
+                    <input asp-for="formFile" id="formFile" class="form-control" onchange="preview()" />
                     <span asp-validation-for="formFile" class="text-danger"></span>
-                </div>  
-              
+                </div>
+                <br />
+                <img id="frame" src="" class="img-fluid" />
                 <br>
                 <div class="form-group mt-2 d-flex justify-content-center">
                     <button type="button" class="btn btn-primary button-loader" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Adding Image"  id="btnSend" onclick="sendData()">Submit</button>

@@ -37,6 +37,9 @@
                         </li>
                         
                     </ul>
+
+                  
+
                     <a class="text-dark" asp-controller="Dashboard" asp-action="GetuserDetails" style="text-decoration: none">
                     <form class="form-inline my-2 my-lg-0" asp-controller="Dashboard" asp-action="GetuserDetails">
                         
@@ -52,7 +55,7 @@
                        </a>
                     <form class="d-flex">
                         &nbsp;&nbsp;
-                        <button class="btn btn-success" type="submit">Logout</button>
+                        <a class="btn btn-success" asp-area="" asp-controller="User" asp-action="Login">Logout</a>
                     </form>
 
                 </div>
@@ -75,7 +78,9 @@
     <script>
         // Example starter JavaScript for disabling form submissions if there are invalid fields
         const inputs = document.querySelectorAll(".input");
-
+        function preview() {
+            frame.src = URL.createObjectURL(event.target.files[0]);
+        }
 
         function addcl() {
             let parent = this.parentNode.parentNode;
