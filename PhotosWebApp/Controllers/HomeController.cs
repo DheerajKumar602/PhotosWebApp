@@ -15,7 +15,7 @@ namespace PhotosWebApp.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("Login","User");
         }
 
         public IActionResult Privacy()

@@ -116,10 +116,7 @@ namespace PhotosWebApp.Controllers
             ViewData["file"] = file;
             return View();
         }
-        [HttpGet]
-        public IActionResult finalDelete() {
-            return View();
-        }
+       
 
         [HttpPost]
         public async Task<IActionResult> finalDelete(int Id)
@@ -130,7 +127,9 @@ namespace PhotosWebApp.Controllers
 
                 using (var httpClient = new HttpClient(_clientHandler))
                 {
-                    string data = JsonConvert.SerializeObject(Id);
+                    JustId justId = new JustId();
+                    justId.id = Id;
+                    string data = JsonConvert.SerializeObject(justId);
                     StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
                     httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
                     var response = await httpClient.PostAsync("https://localhost:7184/api/Protected/DeleteImage",content);

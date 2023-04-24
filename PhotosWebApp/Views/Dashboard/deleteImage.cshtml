@@ -10,9 +10,7 @@
 
 <form action="Dashboard/finalDelete" method="post" >
   <input type="hidden" name="Id" value="@ViewData["id"]">
-<a type="submit" class="btn btn-danger" asp-action="finalDelete">Delete Image</a>
-
-
+<button type="submit" class="btn btn-danger" asp-action="finalDelete">Delete Image</button>
+    <a class="btn btn-success" asp-action="Index">Back to Images</a>
 </form>
 
-<a class="btn btn-success" asp-action="Index">Back to Images</a>
