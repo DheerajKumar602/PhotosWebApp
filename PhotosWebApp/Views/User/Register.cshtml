@@ -106,9 +106,10 @@
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    alert(response.message);
+                    
                     if (response.statusCode == 400)
                     {
+                        alert(response.message);
                         //Show Message on Page With Error
                         
                     }
@@ -173,7 +174,7 @@
 
                     <div class="profile-images-card">
                         <div class="profile-images">
-                            <img src="/images/profile1.png" id="upload-img">
+                            <img src="/images/profile1.png" id="upload-img" style="width: 120px;height:100px;" class="rounded-circle">
                         </div>
                         <div class="custom-file">
                             <label for="ImageFile">Upload Profile Picture</label>
@@ -182,7 +183,6 @@
                           
                         </div>
                     </div>
-
 
                     <div class="input-div one">
                         <div class="i">
@@ -202,9 +202,6 @@
 
                             <input type="email" class="input" id="Email" name="Email" placeholder="Email ID" required>
                         </div>
-
-
-
                     </div>
 
                    <!-- <div class="input-div pass" >
