@@ -1,5 +1,5 @@
 function sendData() {
-    var url = "https://localhost:7184/api/Protected/AddImage";
+    var url = "http://192.168.0.231:5251/api/User/AddImage";
     //var contact = {};
     var $this = $(this);
     var Id = $('#Id').val();
@@ -12,7 +12,7 @@ function sendData() {
         var formData = new FormData();
         formData.append('Id', Id);
         formData.append('formFile', $('#formFile')[0].files[0]);
-        $('.button-loader').button('loading');
+      //  $('.button-loader').button('loading');
 
         $.ajax({
             url: url,

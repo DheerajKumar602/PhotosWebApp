@@ -43,15 +43,14 @@ namespace PhotosWebApp.Controllers
                 JObject RespJson = JObject.Parse(Resp);
                 string Token;
                 string role;
-                if (int.Parse(RespJson["statusCode"].ToString()) == 200 && RespJson["data"]["token"].ToString() != "") //Checking if user logged in & Token is not null
+
+                if (int.Parse(RespJson["statusCode"].ToString()) == 200) //Checking if user logged in & Token is not null
                 {
                     TempData.Clear();
                     Token = RespJson["data"]["token"].ToString();
                     TempData["token"] = RespJson["data"]["token"].ToString();
                     TempData["refreshToken"] = RespJson["data"]["refreshToken"].ToString();
                     role = RespJson["data"]["role"].ToString();
-                    //////////////////////////////////////////////////////////////////////////////////////////Pending  /////////////////
-                    ///
                     TempData["message"] = "";
 
                     TempData.Keep();
@@ -69,6 +68,14 @@ namespace PhotosWebApp.Controllers
                     return View();
                 }
 
+                if (int.Parse(RespJson["statusCode"].ToString()) == 202) //Checking if user logged in & Token is not null
+                {
+                    TempData.Clear();
+                    TempData["message"] = RespJson["data"].ToString();
+                    TempData.Keep();
+                    return RedirectToAction("RegistrationVerifyOtp");
+                }
+
                 else
                 {
                     //ReturnView With Invalid ID/PasswordScreen
@@ -83,7 +90,6 @@ namespace PhotosWebApp.Controllers
                 TempData.Keep();
                 return View();
             }
-
 
         }
 
@@ -125,7 +131,7 @@ namespace PhotosWebApp.Controllers
         [HttpPost]
         public IActionResult ForgotPassword(string Email)
         {
-            var client = new RestClient($@"{enums.apiUrl}/api/Authorization/ForgotPassword");
+            var client = new RestClient($@"{enums.apiUrl}/api/Authorization/GenerateOtp");
             var request = new RestRequest();
             var jsonData = new
             {
@@ -145,7 +151,7 @@ namespace PhotosWebApp.Controllers
                 {
                     TempData["Email"] = Email;
                     TempData.Keep();
-                    return RedirectToAction("SetNewPassword");
+                    return RedirectToAction("SetNewPassword", TempData);
                 }
 
                 TempData["message"] = RespJson["message"].ToString();
@@ -172,16 +178,17 @@ namespace PhotosWebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult SetNewPassword(string Email, int Otp, string NewPassword)
+        public IActionResult SetNewPassword(string Email, int Otp, string NewPassword, string ConfirmPassword)
         {
             //Validaite OTP with EMail id If  valid Update Password Else GIve Invalid Otp Response or Relevant Response
-            var client = new RestClient($@"{enums.apiUrl}/api/Authorization/SetNewPassword");
+            var client = new RestClient($@"{enums.apiUrl}/api/Authorization/ForgotPassword");
             var request = new RestRequest();
             var jsonData = new
             {
                 email = Email,
                 otp = Otp,
-                newPassword = NewPassword
+                newPassword = NewPassword,
+                confirmNewPassword = ConfirmPassword
             };
             object jsonDataBody = JsonConvert.SerializeObject(jsonData);
             request.AddJsonBody(jsonDataBody);
@@ -203,7 +210,6 @@ namespace PhotosWebApp.Controllers
                 TempData["message"] = RespJson["message"].ToString();
                 TempData.Keep();
                 return View();
-
             }
 
             catch (Exception ex)
@@ -219,7 +225,7 @@ namespace PhotosWebApp.Controllers
         [HttpPost]
         public IActionResult RegistrationVerifyOtp(string email, string otp)
         {
-            var client = new RestClient($@"{enums.apiUrl}/api/Authorization/ConfirmRegistration");
+            var client = new RestClient($@"{enums.apiUrl}/api/Authorization/VerifyRegistration");
             var request = new RestRequest();
             var jsonData = new
             {
@@ -246,7 +252,6 @@ namespace PhotosWebApp.Controllers
                 TempData["message"] = RespJson["message"].ToString();
                 TempData.Keep();
                 return View();
-
             }
 
             catch (Exception ex)
@@ -261,7 +266,6 @@ namespace PhotosWebApp.Controllers
         [HttpGet]
         public IActionResult RegistrationVerifyOtp(string email)
         {
-
             TempData["Email"] = email;
             TempData.Keep();
             return View();

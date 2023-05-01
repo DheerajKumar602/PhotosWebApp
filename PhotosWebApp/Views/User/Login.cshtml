@@ -10,7 +10,7 @@
         var password = document.getElementById("Password").value;
         //var paswd = /^(?=.*[0-9])(?=.*[!@@#$%^&*])[a-zA-Z0-9!@@#$%^&*]{7,15}$/;
         if (password.length < 6) {
-            Password.setCustomValidity("Password must be atleast 8 characters long.");
+            Password.setCustomValidity("Password must be atleast 6 characters long.");
             return true;
         }
         else {
@@ -20,7 +20,14 @@
     }
 
     function validateForm() {
+        setEmail();
         validatePassword();
+        
+    }
+
+    function setEmail() {
+        localStorage.setItem("emailId", document.getElementById('Email').value);
+        return true;
     }
 
 </script>
@@ -37,12 +44,13 @@
   
                     <img src="/images/LoginRegsiterPage/avatar.svg">
 
+                    <h2 class="title">Leafboard</h2>
+
                     @if (TempData.ContainsKey("message"))
                     {
-                        <h5>@TempData["message"]</h5>
+                        <h4>@TempData["message"]</h4>
                     }
 
-                    <h2 class="title">Welcome</h2>
                     <div class="input-div one">
 
                         <div class="i">

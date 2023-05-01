@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using NuGet.Common;
+using PhotosWebApp.Models;
 using PhotosWebApp.Models.Dashboard;
 using System.Net.Http.Headers;
 using System.Net.Mime;
@@ -18,7 +19,6 @@ namespace PhotosWebApp.Controllers
         public DashboardController()
         {
             _clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, SslPolicyErrors) => { return true; };
-
         }
 
         [HttpGet]
@@ -40,7 +40,7 @@ namespace PhotosWebApp.Controllers
             {
 
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-                using (var response = await httpClient.GetAsync("https://localhost:7184/api/Protected/userDetails"))
+                using (var response = await httpClient.GetAsync($"{enums.apiUrl}/api/User/userDetails"))
                 {
                     var apiResponse = await response.Content.ReadAsStringAsync();
                     _responseApi = JsonConvert.DeserializeObject<ApiResponse>(apiResponse);
@@ -62,7 +62,7 @@ namespace PhotosWebApp.Controllers
             using (var httpClient = new HttpClient(_clientHandler))
             {
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-                using (var response = await httpClient.GetAsync("https://localhost:7184/api/Protected/ShowImages"))
+                using (var response = await httpClient.GetAsync($"{enums.apiUrl}/api/User/ShowImages"))
                 {
                     var apiImgResponse = await response.Content.ReadAsStringAsync();
                     _responseImgApi = JsonConvert.DeserializeObject<ApiImgResponse>(apiImgResponse);
@@ -78,7 +78,6 @@ namespace PhotosWebApp.Controllers
             return View();
         }
 
-
         [HttpGet]
         public async Task<IActionResult> GetuserDetails()
         {
@@ -92,7 +91,7 @@ namespace PhotosWebApp.Controllers
                 {
 
                     httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-                    using (var response = await httpClient.GetAsync("https://localhost:7184/api/Protected/userDetails"))
+                    using (var response = await httpClient.GetAsync($"{enums.apiUrl}/api/User/userDetails"))
                     {
                         var apiResponse = await response.Content.ReadAsStringAsync();
                         _responseApi = JsonConvert.DeserializeObject<ApiResponse>(apiResponse);
@@ -117,7 +116,6 @@ namespace PhotosWebApp.Controllers
             return View();
         }
 
-
         [HttpPost]
         public async Task<IActionResult> finalDelete(int Id)
         {
@@ -132,7 +130,7 @@ namespace PhotosWebApp.Controllers
                     string data = JsonConvert.SerializeObject(justId);
                     StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
                     httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-                    var response = await httpClient.PostAsync("https://localhost:7184/api/Protected/DeleteImage", content);
+                    var response = await httpClient.PostAsync($"{enums.apiUrl}/api/User/DeleteImage", content);
                 }
                 return RedirectToAction("Index");
             }

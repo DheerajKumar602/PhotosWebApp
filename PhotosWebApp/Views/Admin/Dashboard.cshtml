@@ -8,6 +8,46 @@
     Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
 }
 
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+       
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+</style>
+
+<script>
+    function deleteRow(el) {
+        if (!confirm("Are you sure you want to delete this User?")) return;
+
+        var tbl = el.parentNode.parentNode.parentNode;
+        var row = el.parentNode.parentNode.rowIndex - 1;
+
+        tbl.deleteRow(row);
+
+    }
+
+
+    // example addRow
+    function addRow() {
+        // ....
+        // ....
+        //onclick event
+        btn.setAttribute('onclick', 'deleteRow(this)');
+        cell4.appendChild(btn);
+
+        //...
+    }</script>
+
 <body>
     <div class="row">
         <div>
@@ -22,9 +62,6 @@
                             @Html.DisplayNameFor(model => model.ProfileImage)
                         </th>
 
-                        <th>
-                            @Html.DisplayNameFor(model => model.Username)
-                        </th>
                         <th>
                             @Html.DisplayNameFor(model => model.Name)
                         </th>
@@ -55,20 +92,18 @@
                             <td class="align-middle">
                                 @Html.DisplayFor(modelItem => item.Id)
                             </td>
+
                             @if (item.ProfileImage == null)
                             {
                                 <td class="align-middle">
-                                    <img class="rounded-circle" src="~/images/LoginRegsiterPage/avatar.svg" alt="default image" style="max-width: 120px;height:100px;" />
+                                    <img class="rounded-circle" src="~/images/LoginRegsiterPage/avatar.svg" alt="default image" style="maxwidth: 80px;max-height:80px; border-radius:50%" />
                                 </td>
                             }
                             else{
                             <td class="align-middle">
-                                <img class="rounded-circle" src="@item.ProfileImage" alt="@item.Name" style="width: 120px;height:100px;" />
+                                <img class="rounded-circle" src="@item.ProfileImage" alt="@item.Name" style="max-width: 80px;height:80px; border-radius:50%" />
                             </td>
                             }
-                            <td class="align-middle">
-                                @Html.DisplayFor(modelItem => item.Username)
-                            </td>
 
                             <td class="align-middle">
                                 @Html.DisplayFor(modelItem => item.Name)
@@ -96,14 +131,14 @@
 
                             <td class="align-middle">
 
-                                <button class="btn btn-success" onclick="">Details</button>
+                                <button class="btn btn-danger" onclick="deleteRow(this);">Delete</button>
 
-                                
                                 <!--
-                                    <a class="btn btn-outline-info"> <i class="bi bi-eye"></i>Details</a>
+                                <a class="btn btn-outline-info"> <i class="bi bi-eye"></i>Details</a>
                                 <a class="btn btn-outline-primary"> <i class="bi bi-pencil-square"></i>Edit</a>
 
                                 <a class="btn btn-danger"> <i class="bi bi-trash"></i>Delete</a> -->
+
                             </td>
                         </tr>
                     }

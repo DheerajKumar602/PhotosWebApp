@@ -36,10 +36,11 @@ namespace PhotosWebApp.Controllers
                 {
                     var apiResponse = await response.Content.ReadAsStringAsync();
                     _responseApi = JsonConvert.DeserializeObject<ListAdminResponse>(apiResponse);
-                    
                 }
             }
             return View(_responseApi.data);
         }
+
+
     }
 }
