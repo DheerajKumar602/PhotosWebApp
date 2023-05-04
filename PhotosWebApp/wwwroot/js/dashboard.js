@@ -1,5 +1,5 @@
 function sendData() {
-    var url = "http://192.168.0.231:5251/api/User/AddImage";
+    var url = $('#url').val() ;
     //var contact = {};
     var $this = $(this);
     var Id = $('#Id').val();
@@ -38,10 +38,11 @@ function sendData() {
             error: function (message) {
                 alert("Server Error while Adding Image (Allowed Extentions are jpg,png,jpeg)");
                 $this.button('reset');
-
+                $('#btnSend').prop('disabled', false);
             },
             complete: function () {
                 $('.button-loader').button('reset');
+               
             }
         });
 

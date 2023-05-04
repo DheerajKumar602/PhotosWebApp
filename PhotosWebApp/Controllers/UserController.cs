@@ -31,7 +31,7 @@ namespace PhotosWebApp.Controllers
         [HttpPost]
         public IActionResult Login(LoginModel loginModel)
         {
-            var client = new RestClient($@"{enums.apiUrl}/api/Authorization/Login");
+            var client = new RestClient(route.Login);
             var request = new RestRequest();
             object jsonDataBody = JsonConvert.SerializeObject(loginModel);
             request.AddJsonBody(jsonDataBody);
@@ -99,6 +99,7 @@ namespace PhotosWebApp.Controllers
             var list = new SelectList(CultureHelper.CountryList(), "Key", "Value");
             var sortList = list.OrderBy(p => p.Text).ToList();
             ViewBag.Countries = sortList;
+            ViewBag.url = route.RegisterUser;
             return View();
         }
 
@@ -131,7 +132,7 @@ namespace PhotosWebApp.Controllers
         [HttpPost]
         public IActionResult ForgotPassword(string Email)
         {
-            var client = new RestClient($@"{enums.apiUrl}/api/Authorization/GenerateOtp");
+            var client = new RestClient(route.GenerateOtp);
             var request = new RestRequest();
             var jsonData = new
             {
@@ -181,7 +182,7 @@ namespace PhotosWebApp.Controllers
         public IActionResult SetNewPassword(string Email, int Otp, string NewPassword, string ConfirmPassword)
         {
             //Validaite OTP with EMail id If  valid Update Password Else GIve Invalid Otp Response or Relevant Response
-            var client = new RestClient($@"{enums.apiUrl}/api/Authorization/ForgotPassword");
+            var client = new RestClient(route.ForgotPassword);
             var request = new RestRequest();
             var jsonData = new
             {
@@ -225,7 +226,7 @@ namespace PhotosWebApp.Controllers
         [HttpPost]
         public IActionResult RegistrationVerifyOtp(string email, string otp)
         {
-            var client = new RestClient($@"{enums.apiUrl}/api/Authorization/VerifyRegistration");
+            var client = new RestClient(route.VerifyRegistration);
             var request = new RestRequest();
             var jsonData = new
             {

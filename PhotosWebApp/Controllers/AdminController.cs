@@ -32,7 +32,7 @@ namespace PhotosWebApp.Controllers
             {
 
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-                using (var response = await httpClient.GetAsync($"{enums.apiUrl}/api/Admin/GetAllUsers"))
+                using (var response = await httpClient.GetAsync(route.getAlluser))
                 {
                     var apiResponse = await response.Content.ReadAsStringAsync();
                     _responseApi = JsonConvert.DeserializeObject<ListAdminResponse>(apiResponse);

@@ -96,7 +96,7 @@
 
             $.ajax({
                 type: 'post',
-                url: 'http://192.168.0.231:5251/api/Authorization/RegisterUser',
+                url: $('#url').val(),
                 data: formData,
                 contentType: false,
                 processData: false,
@@ -110,7 +110,7 @@
 
                     else{
                         document.getElementById("EnableRedirect").value = "True";
-                        window.location.href = "http://localhost:7250/User/RegistrationVerifyOtp?email=" + document.getElementById("Email").value;
+                        window.location.href = "https://localhost:7250/User/RegistrationVerifyOtp?email=" + document.getElementById("Email").value;
                     }
 
                     $("#btnsubmit").prop('disabled', false);
@@ -124,7 +124,7 @@
                     //Show Message on Page With Error
                 },
                 error: function (response) {
-                    alert('Error');
+                    alert('Error',response);
 
                     $("#btnsubmit").prop('disabled', false);
                     $("#btnsubmit").prop('value', 'Sign Up');
@@ -261,7 +261,7 @@
                             @Html.DropDownListFor(m => m.Hobby, new SelectList(Enum.GetValues(typeof(Hobbies))), "Select Hobby", new { required="required" })
                         </div>
                     </div>
-
+                    <input type="hidden" id="url" value=@ViewBag.url>
 
                     <input type="submit" class="btn" value="Sign Up" id="btnsubmit" name="btnsubmit" onclick="validateForm()">
                     <a asp-controller="User" asp-action="Login">Already Registered? Log In Now!!!</a>

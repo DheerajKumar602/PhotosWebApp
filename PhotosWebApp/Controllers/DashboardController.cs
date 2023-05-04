@@ -40,7 +40,7 @@ namespace PhotosWebApp.Controllers
             {
 
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-                using (var response = await httpClient.GetAsync($"{enums.apiUrl}/api/User/userDetails"))
+                using (var response = await httpClient.GetAsync(route.userDetails))
                 {
                     var apiResponse = await response.Content.ReadAsStringAsync();
                     _responseApi = JsonConvert.DeserializeObject<ApiResponse>(apiResponse);
@@ -62,7 +62,7 @@ namespace PhotosWebApp.Controllers
             using (var httpClient = new HttpClient(_clientHandler))
             {
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-                using (var response = await httpClient.GetAsync($"{enums.apiUrl}/api/User/ShowImages"))
+                using (var response = await httpClient.GetAsync(route.ShowImages))
                 {
                     var apiImgResponse = await response.Content.ReadAsStringAsync();
                     _responseImgApi = JsonConvert.DeserializeObject<ApiImgResponse>(apiImgResponse);
@@ -74,6 +74,7 @@ namespace PhotosWebApp.Controllers
         [HttpGet]
         public IActionResult AddImage()
         {
+            ViewData["url"] = route.AddImage;
             ViewData["token"] = Usertoken;
             return View();
         }
@@ -91,7 +92,7 @@ namespace PhotosWebApp.Controllers
                 {
 
                     httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-                    using (var response = await httpClient.GetAsync($"{enums.apiUrl}/api/User/userDetails"))
+                    using (var response = await httpClient.GetAsync(route.userDetails))
                     {
                         var apiResponse = await response.Content.ReadAsStringAsync();
                         _responseApi = JsonConvert.DeserializeObject<ApiResponse>(apiResponse);
@@ -130,7 +131,7 @@ namespace PhotosWebApp.Controllers
                     string data = JsonConvert.SerializeObject(justId);
                     StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
                     httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-                    var response = await httpClient.PostAsync($"{enums.apiUrl}/api/User/DeleteImage", content);
+                    var response = await httpClient.PostAsync(route.DeleteImage, content);
                 }
                 return RedirectToAction("Index");
             }
