@@ -21,22 +21,22 @@
     <div class="row">
         <div class="col-md-4"></div>
         <div class="col-md-4">
-            
-@using (Html.BeginForm(FormMethod.Post,new { enctype = "multipart/form-data" }))
-{
-    @Html.ValidationSummary(true)
+
+            @using (Html.BeginForm(FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.ValidationSummary(true)
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                 <div class="form-group ">
                     <input asp-for="Id" type="hidden" class="form-control " id="Id" value="1">
-                    
+
                 </div>
                 <input type="hidden" id="token" value=@ViewData["token"]>
                 <input type="hidden" id="url" value=@ViewData["url"]>
                 <br>
-                <div class="form-group"> 
+                <div class="form-group">
                     <b><label for="formFile" class="form-label">Add Image</label></b>
-                    
+
                     <input asp-for="formFile" id="formFile" class="form-control" onchange="preview()" />
                     <span asp-validation-for="formFile" class="text-danger"></span>
                 </div>
@@ -44,9 +44,9 @@
                 <img id="frame" src="" class="img-fluid" />
                 <br>
                 <div class="form-group mt-2 d-flex justify-content-center">
-                    <button type="button" class="btn btn-primary button-loader" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Adding Image"  id="btnSend" onclick="sendData()">Submit</button>
+                    <button type="button" class="btn btn-primary button-loader" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Adding Image" id="btnSend" onclick="sendData()">Submit</button>
                 </div>
-}
+            }
         </div>
     </div>
 </div>

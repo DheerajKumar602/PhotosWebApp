@@ -40,7 +40,5 @@ namespace PhotosWebApp.Controllers
             }
             return View(_responseApi.data);
         }
-
-
     }
 }
