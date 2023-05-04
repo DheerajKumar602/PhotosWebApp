@@ -1,5 +1,5 @@
 function sendData() {
-    var url = "http://192.168.0.231:5251/api/User/AddImage";
+    var url = "https://localhost:7282/api/User/AddImage";
     //var contact = {};
     var $this = $(this);
     var Id = $('#Id').val();

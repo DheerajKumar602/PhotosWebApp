@@ -9,8 +9,6 @@
 
 <link rel="stylesheet" href="~/css/LoginRegisterStyles.css" asp-append-version="true" />
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
 <script>
 
 
@@ -63,7 +61,7 @@
     }
 
     function validateForm() {
-        document.getElementById("Username").value = document.getElementById("Email").value; //For Taking Email AS Username
+      //  document.getElementById("Username").value = document.getElementById("Email").value; //For Taking Email AS Username
         validatePassword();
         //Code Pending Here
     }
@@ -96,7 +94,7 @@
 
             $.ajax({
                 type: 'post',
-                url: 'http://192.168.0.231:5251/api/Authorization/RegisterUser',
+                url: 'http://192.168.0.230:5251/api/Authorization/RegisterUser',
                 data: formData,
                 contentType: false,
                 processData: false,
@@ -147,6 +145,7 @@
         document.getElementById("ContactUSForm").appendChild(temp);
     }
 </script>
+
 <body>
     <div>
         <img class="wave" src="/images/LoginRegsiterPage/wave.png">
@@ -169,7 +168,7 @@
 
                     <div class="profile-images-card">
                         <div class="profile-images">
-                            <img src="/images/profile1.png" id="upload-img" style="max-width: 80px;height:80px; border-radius:50%">
+                            <img src="/images/profile1.png" id="upload-img" style="max-width: 80px;height:80px; border-radius:50%; object-fit:cover">
                         </div>
                         <div class="custom-file">
                             <label for="ImageFile">Upload Profile Picture</label>
@@ -180,6 +179,7 @@
                     </div>
 
                     <div class="input-div one">
+
                         <div class="i">
                             <i class="fa fa-user-circle"></i>
                         </div>
@@ -187,6 +187,7 @@
                         <div class="div">
                             <input type="text" class="input" id="Name" name="Name" placeholder="Full Name" required>
                         </div>
+
                     </div>
 
                     <div class="input-div pass">
@@ -213,7 +214,6 @@
                     <input type="text" class="input" id="EnableRedirect" name="EnableRedirect" placeholder="False" hidden="hidden" required>
                     <input type="text" class="input" id="Username" name="Username" placeholder="Enter Username" hidden="hidden" required>
                     <input type="text" class="input" id="ProfileImage" name="ProfileImage" placeholder="Enter Username" hidden="hidden" value="profilePic">
-
 
 
                     <div class="input-div pass">
@@ -262,10 +262,8 @@
                         </div>
                     </div>
 
-
                     <input type="submit" class="btn" value="Sign Up" id="btnsubmit" name="btnsubmit" onclick="validateForm()">
                     <a asp-controller="User" asp-action="Login">Already Registered? Log In Now!!!</a>
-
                 </form>
             </div>
         </div>

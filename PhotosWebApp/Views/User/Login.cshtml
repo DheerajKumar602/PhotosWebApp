@@ -22,7 +22,8 @@
     function validateForm() {
         setEmail();
         validatePassword();
-        
+       // document.getElementById("btnsubmit").disabled = true;
+        document.getElementById("btnsubmit").value = "Logging In...";
     }
 
     function setEmail() {
@@ -30,6 +31,15 @@
         return true;
     }
 
+    //$(document).ready(function () {
+
+    //    $("#btnsubmit").click(function () {
+
+    //        $("#btnsubmit").prop('disabled', true);
+    //        $("#btnsubmit").prop('value', 'Logging In....');
+    //        validateForm()
+    //    });
+    //});
 </script>
 
 <body>
@@ -66,13 +76,12 @@
                             <i class="fas fa-lock"></i>
                         </div>
                         <div class="div">
-
                             <input type="password" class="input" id="Password" name="Password" placeholder="Password" required>
                         </div>
                     </div>
 
                     <a asp-controller="User" asp-action="ForgotPassword">Forgot Password?</a>
-                    <input type="submit" class="btn" value="Login" onclick="validateForm()">
+                    <input type="submit" class="btn"  id="btnsubmit" value="Login" onclick="validateForm()">
                     <a asp-controller="User" asp-action="Register">New Here? Sign Up Now!!!</a>
                 </form>
             </div>
